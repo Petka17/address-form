@@ -1,0 +1,26 @@
+{
+  "name": "address-form",
+  "version": "1.0.0",
+  "description": "Address form with google address suggestion",
+  "main": "index.js",
+  "author": "Petr Klimenko",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "parcel index.html",
+    "format": "prettier --write ./src/**/*.{ts,tsx}",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "react": "16.12",
+    "react-dom": "16.12",
+    "use-google-address-suggession": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.4",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.4"
+  }
+}
