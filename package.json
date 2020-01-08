@@ -7,19 +7,20 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "parcel index.html",
+    "start": "env-cmd parcel index.html",
     "format": "prettier --write ./src/**/*.{ts,tsx}",
     "lint": "eslint \"./src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "react": "16.12",
     "react-dom": "16.12",
-    "use-google-address-suggession": "^0.0.2"
+    "use-google-address-suggestions": "^0.0.3"
   },
   "devDependencies": {
     "@types/node": "^13.1.4",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
+    "env-cmd": "^10.0.1",
     "parcel-bundler": "^1.12.4",
     "typescript": "^3.7.4"
   }

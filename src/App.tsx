@@ -1,71 +1,71 @@
-import * as React from "react";
+import * as React from 'react'
 
-import useGoogleAutocompleteSuggestions, {
-  AddressFieldsMapping
-} from "use-google-address-suggession";
+import useGoogleAutocompleteSuggestions, { AddressToComponentMapping } from 'use-google-address-suggestions'
 
 type Address = {
-  house: string;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-};
+  country: string
+  house: string
+  street: string
+  city: string
+  state: string
+  zip: string
+}
 
-const addressFieldsMapping: AddressFieldsMapping<Address> = {
-  street_number: {
-    nameForm: "short_name",
-    resultField: "house"
+const addressFieldsMapping: AddressToComponentMapping<Address> = {
+  country: {
+    componentType: 'country',
+    nameForm: 'long_name',
   },
-  route: {
-    nameForm: "short_name",
-    resultField: "street"
+  house: {
+    componentType: 'street_number',
+    nameForm: 'short_name',
   },
-  locality: {
-    nameForm: "long_name",
-    resultField: "city"
+  street: {
+    nameForm: 'short_name',
+    componentType: 'route',
   },
-  administrative_area_level_1: {
-    nameForm: "short_name",
-    resultField: "state"
+  city: {
+    componentType: 'locality',
+    nameForm: 'long_name',
   },
-  postal_code: {
-    nameForm: "short_name",
-    resultField: "zip"
-  }
-};
+  state: {
+    componentType: 'administrative_area_level_1',
+    nameForm: 'short_name',
+  },
+  zip: {
+    componentType: 'postal_code',
+    nameForm: 'short_name',
+  },
+}
 
 const App = (): JSX.Element => {
-  const [{ house, street, city, state, zip }, updateAddress] = React.useReducer(
+  const [{ country, house, street, city, state, zip }, updateAddress] = React.useReducer(
     (state: Address, newValues: Partial<Address>) => ({
       ...state,
-      ...newValues
+      ...newValues,
     }),
     {
-      house: "",
-      street: "",
-      city: "",
-      state: "",
-      zip: ""
-    }
-  );
+      country: '',
+      house: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+    },
+  )
 
-  const {
-    input,
-    setInput,
-    suggestions,
-    getPlace
-  } = useGoogleAutocompleteSuggestions({
-    key: process.env.GOOGLE_MAPS_API_KEY || "",
+  const { input, setInput, suggestions, getPlace } = useGoogleAutocompleteSuggestions({
+    key: process.env.GOOGLE_MAPS_API_KEY || '',
+    language: 'en',
     mapping: addressFieldsMapping,
-    cb: updateAddress
-  });
+    cb: updateAddress,
+  })
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setInput(e.target.value);
-  };
+    setInput(e.target.value)
+  }
 
-  const handleAddressClick = (placeId: string) => () => getPlace(placeId);
+  const handleAddressClick = (placeId: string) => () => getPlace(placeId)
 
   return (
     <React.Fragment>
@@ -83,6 +83,12 @@ const App = (): JSX.Element => {
 
       <table className="address">
         <tbody>
+          <tr>
+            <td className="label">Country</td>
+            <td className="wideField" colSpan={3}>
+              <input className="field" value={country} readOnly />
+            </td>
+          </tr>
           <tr>
             <td className="label">Street address</td>
             <td className="slimField">
@@ -118,7 +124,7 @@ const App = (): JSX.Element => {
         ))}
       </ul>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default App;
+export default App
